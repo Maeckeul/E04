@@ -9,6 +9,7 @@
         "johnpbloch/wordpress": "^5.4",
         "wpackagist-plugin/akismet":"*",
         "wpackagist-plugin/hello-dolly":"*",
+        "wpackagist-plugin/what-the-file":"*",
         "wpackagist-theme/hueman":"*",
         "wpackagist-theme/twentytwenty":"*"
     },

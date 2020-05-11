@@ -92,7 +92,84 @@ define( 'WP_CONTENT_DIR', dirname( ABSPATH ) . '/content' );
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', false );
+// define( 'WP_DEBUG', false );
+
+// define('ENVIRONEMENT', 'dev'); // Je suis en environement de DEVELOPEMENT
+// define('ENVIRONEMENT', 'testing'); // Je suis en environement de TEST
+define('ENVIRONEMENT', 'prod'); // Je suis en environement de PRODUCTION
+
+if (ENVIRONEMENT == 'dev') {
+
+  define('WP_DEBUG', true);
+  define('WP_DEBUG_DISPLAY', true);
+  define('WP_DEBUG_LOG', true);
+  define('SCRIPT_DEBUG', true);
+
+  // Je ne désactive PAS l'installation & la mise à jour des plugins/thèmes
+  define('DISALLOW_FILE_MODS', false);
+
+  // Je bloque les révisions en local (pas besoin)
+  // Par défaut c'est illimité.
+  // https://wordpress.org/support/article/editing-wp-config-php/#disable-post-revisions
+  define('WP_POST_REVISIONS', false);
+
+  // Je désactive l'utilisation de la corbeille
+  // https://wordpress.org/support/article/editing-wp-config-php/#empty-trash
+  define('EMPTY_TRASH_DAYS', 0);
+
+} else if (ENVIRONEMENT == 'testing') {
+
+  define('WP_DEBUG', true);
+  define('WP_DEBUG_DISPLAY', false);
+  define('WP_DEBUG_LOG', true);
+  define('SCRIPT_DEBUG', true);
+
+  // Je ne désactive PAS l'installation & la mise à jour des plugins/thèmes
+  define( 'DISALLOW_FILE_MODS', false );
+
+  // Je bloque le nombre de révision par contenu à 15
+  // Par défaut c'est illimité.
+  // https://wordpress.org/support/article/editing-wp-config-php/#specify-the-number-of-post-revisions
+  define('WP_POST_REVISIONS', 15);
+
+  // Je laisse les élèments dans la corbeille pendant 60 jours
+  // Au dela, ils seront automatiquement supprimés
+  // https://wordpress.org/support/article/editing-wp-config-php/#empty-trash
+  define('EMPTY_TRASH_DAYS', 60);
+
+} else {
+
+  define('WP_DEBUG', false);
+  define('WP_DEBUG_DISPLAY', false);
+  define('WP_DEBUG_LOG', false);
+  define('SCRIPT_DEBUG', false);
+
+  // Désactive l'installation & la mise à jour des plugins/thèmes
+  define( 'DISALLOW_FILE_MODS', true );
+
+  // Je bloque le nombre de révision par contenu à 15
+  // Par défaut c'est illimité.
+  // https://wordpress.org/support/article/editing-wp-config-php/#specify-the-number-of-post-revisions
+  define('WP_POST_REVISIONS', 15);
+
+  // Je laisse les élèments dans la corbeille pendant 60 jours
+  // Au dela, ils seront automatiquement supprimés
+  // https://wordpress.org/support/article/editing-wp-config-php/#empty-trash
+  define('EMPTY_TRASH_DAYS', 60);
+}
+
+// Bloquer l'éditeur embarqué
+// https://wordpress.org/support/article/editing-wp-config-php/#disable-the-plugin-and-theme-editor
+define( 'DISALLOW_FILE_EDIT', true );
+
+// Désactivation des mises à jour automatique de WordPress
+// https://wordpress.org/support/article/editing-wp-config-php/#disable-wordpress-auto-updates
+define('AUTOMATIC_UPDATER_DISABLED', true);
+
+// Désactivation de la mise à jour du coeur de WordPress
+// https://wordpress.org/support/article/editing-wp-config-php/#disable-wordpress-core-updates
+define('WP_AUTO_UPDATE_CORE', false);
+
 
 /* That's all, stop editing! Happy publishing. */
 
@@ -103,3 +180,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
+
